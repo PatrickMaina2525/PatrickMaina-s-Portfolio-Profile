@@ -1,33 +1,34 @@
-// Dark mode memory
-if(localStorage.getItem("mode")==="dark"){
-document.body.classList.add("dark-mode");
+// PREMIUM INTERACTIONS
+
+// scroll animation
+const observer = new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.style.opacity=1;
+entry.target.style.transform="translateY(0)";
+}
+});
+});
+
+document.querySelectorAll(".section,.post-card,.category-item")
+.forEach(el=>{
+el.style.opacity=0;
+el.style.transform="translateY(40px)";
+observer.observe(el);
+});
+
+// mobile menu
+const toggle=document.querySelector(".menu-toggle");
+const nav=document.querySelector(".nav-links");
+
+if(toggle){
+toggle.onclick=()=>{
+nav.classList.toggle("show");
+};
 }
 
-function toggleMode(){
-document.body.classList.toggle("dark-mode");
-
-localStorage.setItem(
-"mode",
-document.body.classList.contains("dark-mode")
-?"dark":"light"
-);
-}
-
-// Copy contact
+// copy contact text
 function copyText(text){
 navigator.clipboard.writeText(text);
 alert("Copied: "+text);
-}
-
-// Gallery modal
-function openImage(src){
-const modal=document.getElementById("modal");
-const img=document.getElementById("modalImg");
-
-modal.style.display="flex";
-img.src=src;
-}
-
-function closeImage(){
-document.getElementById("modal").style.display="none";
 }
